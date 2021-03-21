@@ -1,8 +1,8 @@
 from bs4 import BeautifulSoup
 import redis
-from secrets import password
+from password import bot_email_pw
 import requests
-import datetime
+
 
 
 # source
@@ -38,8 +38,8 @@ class Scraper:
         from email.mime.multipart import MIMEMultipart
         from email.mime.text import MIMEText
 
-        fromEmail = "insert_bot_email"
-        toEmail = "insert_your_email"
+        fromEmail = "enter_bot_email"
+        toEmail = "enter_your_email"
 
         msg = MIMEMultipart('alternative')
         msg['Subject'] = "Link"
@@ -60,7 +60,7 @@ class Scraper:
             mail = smtplib.SMTP('smtp.gmail.com', 587)
             mail.ehlo()
             mail.starttls()
-            mail.login(fromEmail, password)
+            mail.login(fromEmail, bot_email_pw)
             mail.sendmail(fromEmail, toEmail, msg.as_string())
             mail.quit()
             print(('Email sent!'))
@@ -74,5 +74,4 @@ class Scraper:
 s = Scraper(['Game'])
 s.parse()
 s.store()
-if datetime.datetime.now().hour == 11:
-    s.email()
+s.email()
