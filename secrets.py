@@ -1,0 +1,1 @@
+password = '' #here it must insert bot's gmail password
